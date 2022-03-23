@@ -1,0 +1,18 @@
+<section>
+  <h1><%= title %></h1>
+  <div class="modelsContainer">
+    <% for(let elem of model_list) {%>
+    <div class="modelCard">
+      <div class="imageContainer">
+        <img src="" alt="" />
+      </div>
+      <div class="contentContainer">
+        <h3><%= elem.name %> <span><%= elem.category.name %> </span></h3>
+        <div>Scale: <%= elem.scale %></div>
+        <div>Price: <%= elem.price %> RON</div>
+        <div><%=elem.status %></div>
+      </div>
+    </div>
+    <% } %>
+  </div>
+</section>

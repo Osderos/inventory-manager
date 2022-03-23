@@ -48,7 +48,7 @@ section {
   margin: 25px;
   padding: 25px;
   font-family: "Ubuntu";
-  height: 100vh;
+  /* height: 100vh; */
 }
 
 section h1 {
@@ -75,6 +75,8 @@ footer {
   overflow: hidden;
   background-color: #fff5ee;
   width: 100%;
+  position: fixed;
+  bottom:0;
 }
 
 footer h1 {
@@ -95,6 +97,28 @@ footer i:hover {
   transform: scale(1.05);
   color: blue;
 }
+
+/* models view styling */
+
+.modelsContainer{
+  display: flex;
+  flex-wrap: wrap;
+  gap:25px;
+  /* height: 100vh; */
+ 
+  
+  
+}
+
+.modelCard{
+  width: 300px;
+  padding: 15px;
+  background-color:  #E6E6FA ;
+  border-radius: 25px;
+  display: flex;
+}
+
+
 
 @media screen and (max-width: 450px) {
   nav ul li {

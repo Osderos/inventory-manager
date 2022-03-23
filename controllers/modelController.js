@@ -3,6 +3,9 @@ const Category = require("../models/category");
 
 const async = require("async");
 
+const multer = require('multer')
+// const upload = multer({dest:'/uploads/'})
+
 exports.index = function (req, res) {
   async.parallel(
     {
@@ -23,8 +26,19 @@ exports.index = function (req, res) {
   );
 };
 
-exports.model_list = function (req, res) {
-  res.send("Not Implemented: models list");
+exports.model_list = function (req, res, next) {
+  Model.find({}, "-_id")
+    .sort({ category: 1 })
+    .populate("category")
+    .exec(function (err, list_models) {
+      if (err) {
+        return next(err);
+      }
+      res.render("model_list", {
+        title: "All models",
+        model_list: list_models,
+      });
+    });
 };
 
 exports.model_detail = function (req, res) {
