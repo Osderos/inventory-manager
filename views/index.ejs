@@ -1,16 +1,20 @@
-<h1><%= title %></h1>
+<section>
+  <h1><%= title %></h1>
 
-<p>
-  Welcome to <%= title %>, a website created for keeping track of my models
-  collection , to manage and sell various models
-</p>
-<h1>Dynamic content</h1>
-<% if (error==true) {%>
-<p>Error getting dynamic content</p>
-<% } else {%>
-<p>The inventory has the following records :</p>
-<ul>
-  <li>Models count: <%= data.model_count %></li>
-  <li>Categories count: <%= data.category_count %></li>
-</ul>
-<% } %>
+  <p>
+    Welcome to <%= title %>, a website created for keeping track of my models
+    collection , to manage and sell various models. If you are intersted in
+    purchasing a model, please use the navigation bar at the top of the page to
+    check all models or view by category.
+  </p>
+  <h1>Dynamic content</h1>
+  <% if (error==true) {%>
+  <p>Error getting dynamic content</p>
+  <% } else {%>
+  <p>The inventory has the following records :</p>
+  <ul>
+    <li>Models count: <span><%= data.model_count %></span></li>
+    <li>Categories count: <span><%= data.category_count %></span></li>
+  </ul>
+  <% } %>
+</section>

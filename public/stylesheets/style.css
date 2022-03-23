@@ -4,6 +4,11 @@ body {
   margin: 0;
 }
 
+a {
+  color: inherit;
+  text-decoration: inherit;
+}
+
 /* Navbar Styles */
 nav ul {
   list-style-type: none;
@@ -34,10 +39,70 @@ nav li:hover {
   background-color: aliceblue;
   cursor: pointer;
   transform: translateY(-3px);
+  text-decoration: underline;
+}
+
+/* Section styling */
+
+section {
+  margin: 25px;
+  padding: 25px;
+  font-family: "Ubuntu";
+  height: 100vh;
+}
+
+section h1 {
+  text-decoration: underline;
+  font-size: 32px;
+}
+
+section p,
+li {
+  font-size: 22px;
+}
+
+section span {
+  padding: 5px;
+  background-color: blue;
+  color: white;
+  width: fit-content;
+  font-size: 18px;
+  border-radius: 3px;
+}
+
+/* Footer styling */
+footer {
+  overflow: hidden;
+  background-color: #fff5ee;
+  width: 100%;
+}
+
+footer h1 {
+  font-family: "Ubuntu", sans-serif;
+  font-size: 22px;
+  color: blue;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+i {
+  transition: all 0.5s ease;
+}
+
+footer i:hover {
+  cursor: pointer;
+  transform: scale(1.05);
+  color: blue;
 }
 
 @media screen and (max-width: 450px) {
   nav ul li {
     float: none;
+  }
+
+  section {
+    padding-top: 150px;
+    margin: 10px;
   }
 }
