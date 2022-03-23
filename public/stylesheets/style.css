@@ -9,6 +9,14 @@ a {
   text-decoration: inherit;
 }
 
+.statusAvailable{
+  background-color: green;
+}
+
+.statusSold{
+  background-color: red;
+}
+
 /* Navbar Styles */
 nav ul {
   list-style-type: none;
@@ -76,7 +84,7 @@ footer {
   background-color: #fff5ee;
   width: 100%;
   position: fixed;
-  bottom:0;
+  bottom: 0;
 }
 
 footer h1 {
@@ -100,25 +108,40 @@ footer i:hover {
 
 /* models view styling */
 
-.modelsContainer{
+.modelsContainer {
   display: flex;
   flex-wrap: wrap;
-  gap:25px;
+  gap: 25px;
   /* height: 100vh; */
- 
-  
-  
 }
 
-.modelCard{
+.modelCard {
   width: 300px;
   padding: 15px;
-  background-color:  #E6E6FA ;
+  background-color: #e6e6fa;
   border-radius: 25px;
   display: flex;
 }
 
+/* detailed category view */
+.detailedCategoryCardsContainer {
+  display: flex;
+  gap: 10px;
+  padding: 10px;
+  margin: 15px;
+  background-color: azure;
+  align-items: center;
+  justify-content: space-between;
+  width: 70%;
+  border-radius: 10px;
+  transition: all 0.5s ease;
+}
 
+.detailedCategoryCardsContainer:hover{
+  transform: scale(1.05);
+  cursor: pointer;
+  background-color: aquamarine;
+}
 
 @media screen and (max-width: 450px) {
   nav ul li {
@@ -127,6 +150,20 @@ footer i:hover {
 
   section {
     padding-top: 150px;
-    margin: 10px;
+    margin: 2px;
+    padding-left: 5px;
+    padding-right: 5px;
+  }
+
+  .detailedCategoryCardsContainer {
+    flex-direction: column;
+    padding:5px;
+    margin:5px;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .detailedCategoryCardsContainer {
+    width: 100%;
   }
 }
