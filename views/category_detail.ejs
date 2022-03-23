@@ -1,0 +1,15 @@
+<section>
+  <h1>Category: <%= category.name %></h1>
+
+  <h4>Models</h4>
+
+  <div>
+    <% for(let model of category_models){ %>
+    <div>
+      <a href="<%=model.url %>"><%= model.name %> </a>
+      <span><%= model.price %> </span>
+      <span><%= model.status %> </span>
+    </div>
+    <% } %>
+  </div>
+</section>
