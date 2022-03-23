@@ -9,11 +9,11 @@ const CategorySchema = new Schema({
     default: "Notdefined",
     required: true,
   },
-  model: { type: Schema.Types.ObjectId, ref: "Model", required: true },
+  description: { type: String, required: true },
 });
 
 CategorySchema.virtual("url").get(function () {
   "/catalog/category" + this._id;
 });
 
-module.exports= mongoose.model('Category', CategorySchema)
+module.exports = mongoose.model("Category", CategorySchema);
