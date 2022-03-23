@@ -1,7 +1,26 @@
 const Model = require("../models/model");
+const Category = require("../models/category");
+
+const async = require("async");
 
 exports.index = function (req, res) {
-  res.send("Not implemented: site home page");
+  async.parallel(
+    {
+      model_count: function (callback) {
+        Model.countDocuments({}, callback);
+      },
+      category_count: function (callback) {
+        Category.countDocuments({}, callback);
+      },
+    },
+    function (err, results) {
+      res.render("index", {
+        title: "Personal Models Inventory",
+        error: err,
+        data: results,
+      });
+    }
+  );
 };
 
 exports.model_list = function (req, res) {
