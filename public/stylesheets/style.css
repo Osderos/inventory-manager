@@ -1,8 +1,43 @@
+html,
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  padding: 0;
+  margin: 0;
 }
 
-a {
-  color: #00B7FF;
+/* Navbar Styles */
+nav ul {
+  list-style-type: none;
+  top: 0;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #fff5ee;
+  position: fixed;
+  width: 100%;
+}
+
+nav ul li {
+  float: left;
+  font-family: "Ubuntu", sans-serif;
+  font-size: 22px;
+}
+
+nav ul li {
+  color: blue;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  transition: all 0.5s ease;
+}
+
+nav li:hover {
+  background-color: aliceblue;
+  cursor: pointer;
+  transform: translateY(-3px);
+}
+
+@media screen and (max-width: 450px) {
+  nav ul li {
+    float: none;
+  }
 }
