@@ -3,7 +3,7 @@ const Category = require("../models/category");
 
 const async = require("async");
 
-const multer = require('multer')
+const multer = require("multer");
 // const upload = multer({dest:'/uploads/'})
 
 exports.index = function (req, res) {
@@ -41,8 +41,20 @@ exports.model_list = function (req, res, next) {
     });
 };
 
-exports.model_detail = function (req, res) {
-  res.send("Not implemented: model detail:" + req.params.id);
+exports.model_detail = function (req, res, next) {
+  Model.findById(req.params.id)
+    .populate("category")
+    .exec(function (err, results) {
+      if (err) {
+        return next(err);
+      }
+      if (results == null) {
+        const err = new Error("Model not found");
+        err.status = 404;
+        return next(err);
+      }
+      res.render("model_detail", { title: results.name, model: results });
+    });
 };
 
 exports.model_create_get = function (req, res) {
