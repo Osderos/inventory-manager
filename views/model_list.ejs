@@ -4,7 +4,7 @@
     <% for(let elem of model_list) {%>
     <div class="modelCard">
       <div class="imageContainer">
-        <img src="" alt="" />
+        <img src="<%= elem.picture %> " alt="<%= elem.name %> " />
       </div>
       <div class="contentContainer">
         <h3><%= elem.name %> <span><%= elem.category.name %> </span></h3>

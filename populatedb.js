@@ -1,7 +1,7 @@
 #! /usr/bin/env node
 
 console.log(
-  "This script populates database with current items. Specified database as argument - e.g.: populatedb mongodb+srv://cooluser:coolpassword@cluster0.a9azn.mongodb.net/local_library?retryWrites=true"
+  "This script populates database with current items. Specified database as argument - e.g.: populatedb mongodb+srv://osderos:Oksir123@inventory.ih7oq.mongodb.net/inventory?retryWrites=true&w=majority"
 );
 
 // Get arguments passed on command line
@@ -26,13 +26,14 @@ db.on("error", console.error.bind(console, "MongoDB connection error:"));
 const models = [];
 const categories = [];
 
-function modelCreate(name, scale, price, status, category, cb) {
+function modelCreate(name, scale, price, status, category, picture, cb) {
   modelDetail = {
     name: name,
     scale: scale,
     price: price,
     status: status,
     category: category,
+    picture: picture,
   };
 
   const model = new Model(modelDetail);
@@ -48,10 +49,11 @@ function modelCreate(name, scale, price, status, category, cb) {
   });
 }
 
-function categoryCreate(name, description, cb) {
+function categoryCreate(name, description, picture, cb) {
   categoryDetail = {
     name: name,
     description: description,
+    picture: picture,
   };
 
   const category = new Category(categoryDetail);
@@ -73,6 +75,7 @@ function createCategories(cb) {
         categoryCreate(
           "Cars",
           "Contains various car models from different model producers , sizes and functionalities.",
+          "/images/sedan.png",
           callback
         );
       },
@@ -80,6 +83,7 @@ function createCategories(cb) {
         categoryCreate(
           "Planes",
           "Contains military planes from WW1 and until modern times, different nations. All of them belong to the Military Planes collection.",
+          "/images/airplane.png",
           callback
         );
       },
@@ -87,6 +91,7 @@ function createCategories(cb) {
         categoryCreate(
           "Military",
           "Contains military vehicles from the WW2 and until modern times, different nations. Most of them are from the Russian Tanks collection.",
+          "/images/tank.png",
           callback
         );
       },
@@ -98,7 +103,15 @@ function createCategories(cb) {
 function createModels(cb) {
   async.parallel([
     function (callback) {
-      modelCreate("Aro 240", "1:8", 7500, "Available", categories[0], callback);
+      modelCreate(
+        "Aro 240",
+        "1:8",
+        7500,
+        "Available",
+        categories[0],
+        "/images/aro.jpg",
+        callback
+      );
     },
     function (callback) {
       modelCreate(
@@ -107,6 +120,7 @@ function createModels(cb) {
         400,
         "Available",
         categories[0],
+        "/images/twingo.jpg",
         callback
       );
     },
@@ -117,6 +131,7 @@ function createModels(cb) {
         400,
         "Available",
         categories[0],
+        "/images/duster.jpg",
         callback
       );
     },
@@ -127,6 +142,7 @@ function createModels(cb) {
         450,
         "Available",
         categories[0],
+        "/images/gordini.jpg",
         callback
       );
     },
@@ -137,6 +153,7 @@ function createModels(cb) {
         22,
         "Available",
         categories[0],
+        "/images/dauphine.jpg",
         callback
       );
     },
@@ -147,14 +164,31 @@ function createModels(cb) {
         35,
         "Available",
         categories[0],
+        "/images/stingray.jpg",
         callback
       );
     },
     function (callback) {
-      modelCreate("Lada", "1:42", 12, "Available", categories[0], callback);
+      modelCreate(
+        "Lada",
+        "1:42",
+        12,
+        "Available",
+        categories[0],
+        "/images/lada.jpg",
+        callback
+      );
     },
     function (callback) {
-      modelCreate("Saab", "1:36", 35, "Available", categories[0], callback);
+      modelCreate(
+        "Saab",
+        "1:36",
+        35,
+        "Available",
+        categories[0],
+        "/images/saab.jpg",
+        callback
+      );
     },
     function (callback) {
       modelCreate(
@@ -163,6 +197,7 @@ function createModels(cb) {
         150,
         "Available",
         categories[0],
+        "/images/dacia.jpg",
         callback
       );
     },
@@ -173,6 +208,7 @@ function createModels(cb) {
         50,
         "Available",
         categories[1],
+        "/images/spad.jpg",
         callback
       );
     },
@@ -183,6 +219,7 @@ function createModels(cb) {
         50,
         "Available",
         categories[1],
+        "/images/catalina.jpg",
         callback
       );
     },
@@ -193,6 +230,7 @@ function createModels(cb) {
         50,
         "Available",
         categories[1],
+        "/images/french.jpg",
         callback
       );
     },
@@ -203,6 +241,7 @@ function createModels(cb) {
         50,
         "Available",
         categories[1],
+        "/images/pzl.jpg",
         callback
       );
     },
@@ -213,6 +252,7 @@ function createModels(cb) {
         50,
         "Available",
         categories[1],
+        "/images/fokker.jpg",
         callback
       );
     },
@@ -223,6 +263,7 @@ function createModels(cb) {
         50,
         "Available",
         categories[1],
+        "/images/wildcat.jpg",
         callback
       );
     },
@@ -233,11 +274,20 @@ function createModels(cb) {
         50,
         "Available",
         categories[1],
+        "/images/meteor.jpg",
         callback
       );
     },
     function (callback) {
-      modelCreate("MiG ?", "1:100", 50, "Available", categories[1], callback);
+      modelCreate(
+        "MiG ?",
+        "1:100",
+        50,
+        "Available",
+        categories[1],
+        "/images/mig.jpg",
+        callback
+      );
     },
     function (callback) {
       modelCreate(
@@ -246,6 +296,7 @@ function createModels(cb) {
         50,
         "Available",
         categories[1],
+        "/images/komet.jpg",
         callback
       );
     },
@@ -256,6 +307,7 @@ function createModels(cb) {
         50,
         "Available",
         categories[1],
+        "/images/phantom2.jpg",
         callback
       );
     },
@@ -266,6 +318,7 @@ function createModels(cb) {
         50,
         "Available",
         categories[1],
+        "/images/hawk.jpg",
         callback
       );
     },
@@ -276,6 +329,7 @@ function createModels(cb) {
         50,
         "Available",
         categories[1],
+        "/images/thunderbolt.jpg",
         callback
       );
     },
@@ -286,6 +340,7 @@ function createModels(cb) {
         50,
         "Available",
         categories[1],
+        "/images/b117.jpg",
         callback
       );
     },
@@ -296,6 +351,7 @@ function createModels(cb) {
         50,
         "Available",
         categories[1],
+        "/images/eurofighter.jpg",
         callback
       );
     },
@@ -306,6 +362,7 @@ function createModels(cb) {
         50,
         "Available",
         categories[1],
+        "/images/panther.jpg",
         callback
       );
     },
@@ -316,6 +373,7 @@ function createModels(cb) {
         50,
         "Available",
         categories[1],
+        "/images/sabre.jpg",
         callback
       );
     },
@@ -326,6 +384,7 @@ function createModels(cb) {
         50,
         "Available",
         categories[1],
+        "/images/me262.jpg",
         callback
       );
     },
@@ -336,6 +395,7 @@ function createModels(cb) {
         55,
         "Available",
         categories[2],
+        "/images/sdkfz.jpg",
         callback
       );
     },
@@ -346,6 +406,7 @@ function createModels(cb) {
         55,
         "Available",
         categories[2],
+        "/images/tankT28.jpg",
         callback
       );
     },
@@ -356,6 +417,7 @@ function createModels(cb) {
         55,
         "Available",
         categories[2],
+        "/images/tankSu.jpg",
         callback
       );
     },
@@ -366,6 +428,7 @@ function createModels(cb) {
         55,
         "Available",
         categories[2],
+        "/images/tankIS.jpg",
         callback
       );
     },
@@ -376,6 +439,7 @@ function createModels(cb) {
         55,
         "Available",
         categories[2],
+        "/images/tankM1.jpg",
         callback
       );
     },
@@ -386,6 +450,7 @@ function createModels(cb) {
         55,
         "Available",
         categories[2],
+        "/images/tankM2.jpg",
         callback
       );
     },

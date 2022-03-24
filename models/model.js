@@ -11,7 +11,8 @@ const ModelSchema = new Schema({
     enum: ["Available", "Sold"],
     default: "Available",
   },
-  category: { type: Schema.Types.ObjectId, ref: "Category", required: true }
+  category: { type: Schema.Types.ObjectId, ref: "Category", required: true },
+  picture: { type: String, required: true },
 });
 
 ModelSchema.virtual("url").get(function () {

@@ -10,6 +10,7 @@ const CategorySchema = new Schema({
     required: true,
   },
   description: { type: String, required: true },
+  picture: { type: String, required: true },
 });
 
 CategorySchema.virtual("url").get(function () {
