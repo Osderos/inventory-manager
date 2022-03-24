@@ -10,7 +10,11 @@
         <h3><%= elem.name %> <span><%= elem.category.name %> </span></h3>
         <div>Scale: <%= elem.scale %></div>
         <div>Price: <%= elem.price %> RON</div>
-        <div><%=elem.status %></div>
+        <% if(elem.status==="Available"){ %>
+        <div class="statusAvailable"><%=elem.status %></div>
+        <% }else{ %>
+        <div class="statusSold"><%=elem.status %></div>
+        <% } %>
       </div>
     </div>
     <% } %>
