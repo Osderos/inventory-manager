@@ -5,9 +5,6 @@ const async = require("async");
 
 const { body, validationResult } = require("express-validator");
 
-const multer = require("multer");
-// const upload = multer({dest:'/uploads/'})
-
 exports.index = function (req, res) {
   async.parallel(
     {
@@ -60,59 +57,67 @@ exports.model_detail = function (req, res, next) {
 };
 
 exports.model_create_get = function (req, res, next) {
-  res.render("category_form", { title: "Create Category" });
+  Category.find().exec(function (err, results) {
+    if (err) {
+      return next(err);
+    }
+    res.render("model_form", { title: "Add New Model", categories: results });
+  });
 };
 
 exports.model_create_post = [
   //Validate and sanitize fields.
   body("name")
+    .exists()
+    .withMessage("Name is required")
     .trim()
     .isLength({ min: 3 })
     .escape()
-    .withMessage("Category name must have minimum lenght of 3")
-    .isAlpha()
-    .withMessage("Must contain only letters"),
-  body("description")
-    .trim()
-    .isLength({ min: 10 })
-    .escape()
-    .withMessage("Please provide a brief description of the category created"),
+    .withMessage("Model name must have minimum lenght of 3"),
+  body("scale").exists().withMessage("Scale is required").trim().escape(),
+  body("price")
+    .exists()
+    .withMessage("Model must have a price")
+    .isNumeric()
+    .escape(),
 
   //Process the request after sanitization and validation.
   (req, res, next) => {
     const errors = validationResult(req);
-    const category = new Category({
+
+    const receivedPath = req.file.path;
+    const cleanedPath = receivedPath.slice(6);
+
+    const model = new Model({
       name: req.body.name,
-      description: req.body.description,
-      picture: req.body.picture,
+      price: req.body.price,
+      scale: req.body.scale,
+      status: req.body.status,
+      category: req.body.category,
+      picture: cleanedPath,
     });
     if (!errors.isEmpty()) {
       //there are errors, render the form again with remarks considered.
-      res.render("category_form", {
-        title: "Create Category",
-        category: category,
-        errors: errors.array(),
-      });
-      return;
-    } else {
-      //check if category with same name exists
-      Category.findOne({ name: req.body.name }).exec(function (
-        err,
-        found_category
-      ) {
+
+      Category.find().exec(function (err, results) {
         if (err) {
           return next(err);
         }
-        if (found_category) {
-          res.redirect(found_category.url);
-        } else {
-          category.save(function (err) {
-            if (err) {
-              return next(err);
-            }
-            res.redirect(category.url);
-          });
+        res.render("model_form", {
+          title: "Add New Model",
+          categories: results,
+          model: model,
+          errors: errors.array(),
+        });
+      });
+
+      return;
+    } else {
+      model.save(function (err) {
+        if (err) {
+          return next(err);
         }
+        res.redirect(model.url);
       });
     }
   },
