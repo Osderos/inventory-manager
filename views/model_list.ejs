@@ -7,7 +7,7 @@
         <img src="<%= elem.picture %> " alt="<%= elem.name %> " />
       </div>
       <div class="contentContainer">
-        <h3><%= elem.name %> <span><%= elem.category.name %> </span></h3>
+        <a href="<%= elem.url %> "><h3><%= elem.name %> <span><%= elem.category.name %> </span></h3></a>
         <div>Scale: <%= elem.scale %></div>
         <div>Price: <%= elem.price %> RON</div>
         <% if(elem.status==="Available"){ %>

@@ -5,7 +5,6 @@ const Schema = mongoose.Schema;
 const CategorySchema = new Schema({
   name: {
     type: String,
-    enum: ["Cars", "Planes", "Military", "Notdefined"],
     default: "Notdefined",
     required: true,
   },
