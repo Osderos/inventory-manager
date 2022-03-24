@@ -1,0 +1,41 @@
+<section>
+  <h1><%= title %></h1>
+
+  <div>
+    <% if(typeof category != 'undefined' && category.picture && category.picture
+    != 'undefined' ){ %>
+    <img src="<%= category.picture %> " alt="<%= category.picture %> " />
+    <% } %>
+  </div>
+
+  <form action="" method="POST" enctype="multipart/form-data">
+    <div>
+      <label for="name">Category</label>
+      <input
+        type="text"
+        id="name"
+        name="name"
+        value="<%= typeof category == 'undefined' ? '':category.name %> "
+      />
+    </div>
+    <div>
+      <label for="description">Description</label>
+      <textarea name="description" id="description" cols="30" rows="10">
+<%= typeof category == 'undefined'? '':category.description %> </textarea
+      >
+    </div>
+    <div>
+      <label for="picture">Select a cover image</label>
+      <input type="file" name="picture" id="picture" />
+    </div>
+    <button type="submit">Submit</button>
+  </form>
+
+  <% if(typeof errors !='undefined'){ %>
+  <ul>
+    <% errors.forEach(err=>{%>
+    <li><%=err.msg %></li>
+    <% }) %>
+  </ul>
+  <% } %>
+</section>

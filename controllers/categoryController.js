@@ -3,6 +3,8 @@ const Model = require("../models/model");
 
 const async = require("async");
 
+const { body, validationResult } = require("express-validator");
+
 exports.category_list = function (req, res, next) {
   Category.find().exec(function (err, list_categories) {
     if (err) {
@@ -43,13 +45,72 @@ exports.category_detail = function (req, res, next) {
   );
 };
 
-exports.category_create_get = function (req, res) {
-  res.send("Not implemented: category create get");
+exports.category_create_get = function (req, res, next) {
+  res.render("category_form", { title: "Create Category" });
 };
 
-exports.category_create_post = function (req, res) {
-  res.send("Not implemented: category create post");
-};
+exports.category_create_post = [
+  //Validate and sanitize fields.
+  body("name")
+    .trim()
+    .isLength({ min: 3 })
+    .escape()
+    .withMessage("Category name must have minimum lenght of 3")
+    .isAlpha()
+    .withMessage("Must contain only letters"),
+  body("description")
+    .trim()
+    .isLength({ min: 10 })
+    .escape()
+    .withMessage("Please provide a brief description of the category created"),
+
+  //Process the request after sanitization and validation.
+  (req, res, next) => {
+    
+    const errors = validationResult(req);
+
+    const receivedPath = req.file.path
+    const cleanedPath = receivedPath.slice(6)
+
+    const category = new Category(
+      {
+      name: req.body.name,
+      description: req.body.description,
+      picture: cleanedPath,
+    }
+    );
+    if (!errors.isEmpty()) {
+      //there are errors, render the form again with remarks considered.
+
+      res.render("category_form", {
+        title: "Create Category",
+        category: category,
+        errors: errors.array(),
+      });
+      return;
+    } else {
+      //check if category with same name exists
+      Category.findOne({ 'name': req.body.name }).exec(function (
+        err,
+        found_category
+      ) {
+        if (err) {
+          return next(err);
+        }
+        if (found_category) {
+          res.redirect(found_category.url);
+        } else {
+          category.save(function (err) {
+            if (err) {
+              return next(err);
+            }
+            res.redirect(category.url);
+          });
+        }
+      });
+    }
+  },
+];
 
 exports.category_delete_get = function (req, res) {
   res.send("Not implemented: category delete get");
