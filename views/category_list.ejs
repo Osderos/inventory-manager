@@ -1,6 +1,12 @@
 <section>
-  <h1><%= title %></h1>
-  <a href="/catalog/category/create"><button>Create Category</button></a>
+  <div class="topSide">
+    <h1><%= title %></h1>
+    <a href="/catalog/category/create"
+      ><button class="createBtn">
+        <i class="fa-solid fa-folder-plus"></i> Create Category
+      </button></a
+    >
+  </div>
   <div class="modelsContainer">
     <% for(let elem of category_list) {%>
     <div class="modelCard">

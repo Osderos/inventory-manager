@@ -9,6 +9,14 @@ a {
   text-decoration: inherit;
 }
 
+input, textarea{
+  padding:5px;
+  border-radius: 5px;
+  font-size: 20px;
+  margin:5px;
+  color: blue;
+}
+
 .statusAvailable {
   background-color: green;
   color: white;
