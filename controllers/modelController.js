@@ -80,6 +80,7 @@ exports.model_create_post = [
     .withMessage("Model must have a price")
     .isNumeric()
     .escape(),
+  body("category").trim(),
 
   //Process the request after sanitization and validation.
   (req, res, next) => {
@@ -96,6 +97,7 @@ exports.model_create_post = [
       category: req.body.category,
       picture: cleanedPath,
     });
+    console.log(model);
     if (!errors.isEmpty()) {
       //there are errors, render the form again with remarks considered.
 

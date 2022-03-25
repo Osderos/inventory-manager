@@ -9,7 +9,7 @@ a {
   text-decoration: inherit;
 }
 
-input, textarea{
+input, textarea, select{
   padding:5px;
   border-radius: 5px;
   font-size: 20px;
