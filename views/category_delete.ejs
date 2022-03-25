@@ -3,12 +3,17 @@
   <p><%=category.description %></p>
 
   <% if(category_models.length){ %>
-  <p>Delete the following models before attempting to delete this category</p>
-  <h4>Models</h4>
+  <p class="deleteParagraph">
+    Delete the following models before attempting to delete this category
+  </p>
+  <h2>Models</h2>
   <% category_models.forEach(model =>{ %>
-  <a href="<%=model.url %> "><%= model.name %> </a>
+  <ul>
+    <a href="<%=model.url %> "> <li><%= model.name %></li></a>
+  </ul>
+
   <% }) %> <% }else{ %>
-  <p>Do you really want to delete this Category?</p>
+  <p class="deleteParagraph">Do you really want to delete this Category?</p>
   <form action="" method="POST">
     <div>
       <input
@@ -18,7 +23,8 @@
         required="true"
         value="<%=category._id%> "
       />
-      <button type="submit">Delete</button>
+      <button type="submit" class="removeBtn">Delete</button>
+      <a href="<%=category.url %> "><button type="button" class="classicBtn">Cancel</button></a>
     </div>
   </form>
   <% } %>

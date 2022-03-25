@@ -1,6 +1,14 @@
 <section>
   <h1>Name: <%= title %></h1>
   <h2>Category: <%= model.category.name %></h2>
+  <div class="btnWrapper">
+    <a href="<%= model.url+'/delete' %> "
+      ><button class="removeBtn">Delete Model</button></a
+    >
+    <a href="/catalog/models"
+      ><button class="classicBtn">Return To Models</button></a
+    >
+  </div>
   <div>
     <div>
       <img src="<%= model.picture %> " alt="<%= model.name %> " />

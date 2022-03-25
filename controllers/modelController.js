@@ -125,12 +125,28 @@ exports.model_create_post = [
   },
 ];
 
-exports.model_delete_get = function (req, res) {
-  res.send("Not implmented: model delete get");
+exports.model_delete_get = function (req, res, next) {
+  Model.findById(req.params.id)
+    .populate("category")
+    .exec(function (err, model) {
+      if (err) {
+        return next(err);
+      }
+      if (model == null) {
+        res.redirect("catalog/models");
+      }
+      res.render("model_delete", { title: "Delete Model", model: model });
+    });
 };
 
-exports.model_delete_post = function (req, res) {
-  res.send("Not implmented: model delete post");
+exports.model_delete_post = function (req, res, next) {
+  const trimmedId = req.body.id.trim();
+  Model.findByIdAndRemove(trimmedId, function deleteModel(err) {
+    if (err) {
+      return next(err);
+    }
+    res.redirect("/catalog/models");
+  });
 };
 
 exports.model_update_get = function (req, res) {

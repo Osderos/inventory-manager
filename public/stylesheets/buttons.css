@@ -1,27 +1,31 @@
-.createBtn{
-    padding: 10px;
-    font-family: 'Ubuntu',sans-serif;
-    font-size: 16px;
-    word-spacing: 1px;
-    font-weight: bold;
+.createBtn, .removeBtn {
+  padding: 10px;
+  font-family: "Ubuntu", sans-serif;
+  font-size: 16px;
+  word-spacing: 1px;
+  font-weight: bold;
 }
 
-.createBtn:hover{
-    color:  blue;
-    background-color: darkgrey;
-    
+.createBtn:hover {
+  color: blue;
+  background-color: darkgrey;
 }
 
-.classicBtn{
-    padding: 10px;
-    font-family: 'Ubuntu',sans-serif;
-    font-size: 16px;
-    word-spacing: 1px;
-    font-weight: bold; 
-    color: blue;
+.removeBtn:hover {
+  color: red;
+  background-color: darkgrey;
 }
 
-.classicBtn:hover{
-    color:white;
-    background-color: blue;
+.classicBtn {
+  padding: 10px;
+  font-family: "Ubuntu", sans-serif;
+  font-size: 16px;
+  word-spacing: 1px;
+  font-weight: bold;
+  color: blue;
+}
+
+.classicBtn:hover {
+  color: white;
+  background-color: blue;
 }
