@@ -1,0 +1,25 @@
+<section>
+  <h1><%=title %> : <%= category.name %></h1>
+  <p><%=category.description %></p>
+
+  <% if(category_models.length){ %>
+  <p>Delete the following models before attempting to delete this category</p>
+  <h4>Models</h4>
+  <% category_models.forEach(model =>{ %>
+  <a href="<%=model.url %> "><%= model.name %> </a>
+  <% }) %> <% }else{ %>
+  <p>Do you really want to delete this Category?</p>
+  <form action="" method="POST">
+    <div>
+      <input
+        type="hidden"
+        id="categoryid"
+        name="categoryid"
+        required="true"
+        value="<%=category._id%> "
+      />
+      <button type="submit">Delete</button>
+    </div>
+  </form>
+  <% } %>
+</section>

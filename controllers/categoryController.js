@@ -66,19 +66,16 @@ exports.category_create_post = [
 
   //Process the request after sanitization and validation.
   (req, res, next) => {
-    
     const errors = validationResult(req);
 
-    const receivedPath = req.file.path
-    const cleanedPath = receivedPath.slice(6)
+    const receivedPath = req.file.path;
+    const cleanedPath = receivedPath.slice(6);
 
-    const category = new Category(
-      {
+    const category = new Category({
       name: req.body.name,
       description: req.body.description,
       picture: cleanedPath,
-    }
-    );
+    });
     if (!errors.isEmpty()) {
       //there are errors, render the form again with remarks considered.
 
@@ -90,7 +87,7 @@ exports.category_create_post = [
       return;
     } else {
       //check if category with same name exists
-      Category.findOne({ 'name': req.body.name }).exec(function (
+      Category.findOne({ name: req.body.name }).exec(function (
         err,
         found_category
       ) {
@@ -112,13 +109,74 @@ exports.category_create_post = [
   },
 ];
 
-exports.category_delete_get = function (req, res) {
-  res.send("Not implemented: category delete get");
+exports.category_delete_get = function (req, res, next) {
+  async.parallel(
+    {
+      category: function (callback) {
+        Category.findById(req.params.id).exec(callback);
+      },
+      category_models: function (callback) {
+        Model.find({ category: req.params.id }).exec(callback);
+      },
+    },
+    function (err, results) {
+      if (err) {
+        return next(err);
+      }
+      if (results.category == null) {
+        res.redirect("/catalog/categories");
+      }
+      res.render("category_delete", {
+        title: "Category Delete",
+        category: results.category,
+        category_models: results.category_models,
+      });
+    }
+  );
 };
 
-exports.category_delete_post = function (req, res) {
-  res.send("Not implemented: category delete post");
-};
+exports.category_delete_post = [
+  body("Category").trim(),
+  body("_id").trim(),
+
+  (req, res, next) => {
+    async.parallel(
+      {
+        category: function (callback) {
+          Category.findById(req.body.id).exec(callback);
+        },
+        category_models: function (callback) {
+          Model.find({ category: req.body.id }).exec(callback);
+        },
+      },
+      function (err, results) {
+        if (err) {
+          return next(err);
+        }
+        if (results.category_models.length > 0) {
+          res.render("category_delete", {
+            title: "Delete Category",
+            category: results.category,
+            category_models: results.category_models,
+          });
+          return;
+        } else {
+          
+          const trimedCategoryId= req.body.categoryid.trim()
+          Category.findByIdAndRemove(
+            trimedCategoryId,
+            function deleteCategory(err) {
+              if (err) {
+                return next(err);
+              }
+              res.redirect("/catalog/categories");
+            }
+          );
+        }
+      }
+    );
+  },
+];
 
 exports.category_update_get = function (req, res) {
   res.send("Not implemented: category update get");
