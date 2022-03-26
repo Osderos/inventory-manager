@@ -3,12 +3,15 @@ var express = require("express");
 var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
-const expressLayouts = require('express-ejs-layouts')
-const favicon = require ('serve-favicon')
+const expressLayouts = require("express-ejs-layouts");
+const favicon = require("serve-favicon");
 
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
 var catalogRouter = require("./routes/catalog");
+
+var compression = require("compression");
+var helmet = require('helmet')
 
 var app = express();
 
@@ -26,15 +29,15 @@ db.on("error", console.error.bind(console, "MongoDB connection error:"));
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 
-
+app.use(helmet())
 app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(favicon(path.join(__dirname,'public','images','favicon.ico')))
+app.use(favicon(path.join(__dirname, "public", "images", "favicon.ico")));
 app.use(express.static(path.join(__dirname, "public")));
-
-app.use(expressLayouts)
+app.use(compression());
+app.use(expressLayouts);
 
 app.use("/", indexRouter);
 app.use("/users", usersRouter);

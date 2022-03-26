@@ -4,6 +4,9 @@ const Model = require("../models/model");
 const async = require("async");
 
 const { body, validationResult } = require("express-validator");
+const { sanitize } = require("express-validator/filter");
+
+const debug = require("debug")("category");
 
 exports.category_list = function (req, res, next) {
   Category.find().exec(function (err, list_categories) {
@@ -178,8 +181,10 @@ exports.category_delete_post = [
 ];
 
 exports.category_update_get = function (req, res, next) {
+  
   Category.findById(req.params.id).exec(function (err, category) {
     if (err) {
+      debug("update error:" + err);
       return next(err);
     }
     if (category == null) {
@@ -211,9 +216,9 @@ exports.category_update_post = [
 
   //Process the request after sanitization and validation.
   (req, res, next) => {
-    console.log('req.file', req.file);
-    console.log('req.body', req.body);
-    console.log('req.params', req.params);
+    console.log("req.file", req.file);
+    console.log("req.body", req.body);
+    console.log("req.params", req.params);
 
     const errors = validationResult(req);
 
@@ -226,8 +231,7 @@ exports.category_update_post = [
       picture: cleanedPath,
       _id: req.params.id,
     });
-    
-    
+
     if (!errors.isEmpty()) {
       //there are errors, render the form again with remarks considered.
 

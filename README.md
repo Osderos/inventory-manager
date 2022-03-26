@@ -19,6 +19,7 @@ Responsive design with minimalist styling.
 
 ### Frontend:
 - HTML
+- CSS
 - EJS
 
 
