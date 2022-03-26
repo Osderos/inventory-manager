@@ -161,8 +161,7 @@ exports.category_delete_post = [
           });
           return;
         } else {
-          
-          const trimedCategoryId= req.body.categoryid.trim()
+          const trimedCategoryId = req.body.categoryid.trim();
           Category.findByIdAndRemove(
             trimedCategoryId,
             function deleteCategory(err) {
@@ -178,10 +177,79 @@ exports.category_delete_post = [
   },
 ];
 
-exports.category_update_get = function (req, res) {
-  res.send("Not implemented: category update get");
+exports.category_update_get = function (req, res, next) {
+  Category.findById(req.params.id).exec(function (err, category) {
+    if (err) {
+      return next(err);
+    }
+    if (category == null) {
+      const err = new Error("Category not found");
+      err.status = 404;
+      return next(err);
+    }
+    res.render("category_form", {
+      title: "Update Category",
+      category: category,
+    });
+  });
 };
 
-exports.category_update_post = function (req, res) {
-  res.send("Not implemented: category update post");
-};
+exports.category_update_post = [
+  //Validate and sanitize fields.
+  body("name")
+    .trim()
+    .isLength({ min: 3 })
+    .escape()
+    .withMessage("Category name must have minimum lenght of 3")
+    .isAlpha()
+    .withMessage("Must contain only letters"),
+  body("description")
+    .trim()
+    .isLength({ min: 10 })
+    .escape()
+    .withMessage("Please provide a brief description of the category created"),
+
+  //Process the request after sanitization and validation.
+  (req, res, next) => {
+    console.log('req.file', req.file);
+    console.log('req.body', req.body);
+    console.log('req.params', req.params);
+
+    const errors = validationResult(req);
+
+    const receivedPath = req.file.path;
+    const cleanedPath = receivedPath.slice(6);
+
+    const category = new Category({
+      name: req.body.name,
+      description: req.body.description,
+      picture: cleanedPath,
+      _id: req.params.id,
+    });
+    
+    
+    if (!errors.isEmpty()) {
+      //there are errors, render the form again with remarks considered.
+
+      res.render("category_form", {
+        title: "Update Category",
+        category: category,
+        errors: errors.array(),
+      });
+      return;
+    } else {
+      //check if category with same name exists
+      Category.findByIdAndUpdate(
+        req.params.id,
+        category,
+        {},
+        function (err, thecategory) {
+          if (err) {
+            return next(err);
+          }
+          res.redirect(thecategory.url);
+        }
+      );
+    }
+  },
+];

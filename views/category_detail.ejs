@@ -1,7 +1,15 @@
 <section>
   <h1>Category: <%= category.name %></h1>
-  <a href="<%=category.url+'/delete' %> "><button class="removeBtn"><i class="fa-solid fa-folder-xmark"></i>Delete Category</button></a>
-  <p ><%=category.description %></p>
+  <a href="<%=category.url+'/delete' %> "
+    ><button class="removeBtn">Delete Category</button></a
+  >
+  <a href="<%=category.url+'/update' %> "
+    ><button class="classicBtn">Update Category</button></a
+  >
+  <a href="/catalog/categories"
+    ><button class="classicBtn">Return to Categories</button></a
+  >
+  <p><%=category.description %></p>
   <h2>Models</h2>
 
   <div>

@@ -12,7 +12,7 @@ const ModelSchema = new Schema({
     default: "Available",
   },
   category: { type: Schema.Types.ObjectId, ref: "Category", required: true },
-  picture: { type: String, required: true },
+  picture: { type: String, required: false },
 });
 
 ModelSchema.virtual("url").get(function () {

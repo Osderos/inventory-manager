@@ -32,7 +32,7 @@ router.get("/model/:id/delete", model_controller.model_delete_get);
 router.post("/model/:id/delete", model_controller.model_delete_post);
 
 router.get("/model/:id/update", model_controller.model_update_get);
-router.post("/model/:id/update", model_controller.model_update_post);
+router.post("/model/:id/update",upload.single("picture"), model_controller.model_update_post);
 
 router.get("/model/:id", model_controller.model_detail);
 router.get("/models", model_controller.model_list);

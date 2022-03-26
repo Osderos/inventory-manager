@@ -39,14 +39,16 @@
       <div class="formElemWrapper">
         <label for="category">Model Category</label>
         <select name="category" id="category" required>
-          <% categories.forEach(category=> {%> 
-          <% if(typeof model != 'undefined') {%> 
-          <% var selected = category._id.toString() === model.category._id.toString() ? 'selected': ''%>
-          <option value="<%= category._id %> " <%="selected" %>><%= category.name %></option>
+          <% categories.forEach(category=> {%> <% if(typeof model !=
+          'undefined') {%> <% var selected = category._id.toString() ===
+          model.category._id.toString() ||
+          category._id.toString()==model.category ? 'selected': ''%>
+          <option value="<%= category._id %> " <%="selected" %>
+            ><%= category.name %>
+          </option>
           <% }else{ %>
           <option value="<%= category._id %> "><%= category.name %></option>
-          <% } %> 
-          <% }) %>
+          <% } %> <% }) %>
         </select>
       </div>
       <div class="formElemWrapper">
@@ -62,4 +64,12 @@
       </div>
     </div>
   </form>
+
+  <% if(typeof model != 'undefined' && model.picture && model.picture !=
+  'undefined' ){ %>
+
+  <div>
+    <img src="<%= model.picture %> " alt="<%= model.picture %> " />
+  </div>
+  <% } %>
 </section>
