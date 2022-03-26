@@ -9,7 +9,7 @@ After that there are 2 tabs for models and categories. Each contains a list of a
 An populatedb script has been made to facilitate the upload of files in the db.
 Responsive design with minimalist styling.
 
-[](preview.png)
+![](preview.png)
 
 ## Technologies used:
 
