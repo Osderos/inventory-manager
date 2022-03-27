@@ -1,7 +1,7 @@
 #! /usr/bin/env node
 
 console.log(
-  "This script populates database with current items. Specified database as argument - e.g.: populatedb mongodb+srv://osderos:Oksir123@inventory.ih7oq.mongodb.net/inventory?retryWrites=true&w=majority"
+  "This script populates database with current items. Specified database as argument - e.g.: populatedb mongodb+srv://username:password@inventory.ih7oq.mongodb.net/inventory?retryWrites=true&w=majority"
 );
 
 // Get arguments passed on command line

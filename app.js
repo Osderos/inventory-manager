@@ -5,20 +5,22 @@ var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 const expressLayouts = require("express-ejs-layouts");
 const favicon = require("serve-favicon");
+require('dotenv').config()
+
+console.log(process.env);
 
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
 var catalogRouter = require("./routes/catalog");
 
 var compression = require("compression");
-var helmet = require('helmet')
+var helmet = require("helmet");
 
 var app = express();
 
 const mongoose = require("mongoose");
 
-const dev_db_url =
-  "mongodb+srv://osderos:Oksir123@inventory.ih7oq.mongodb.net/inventory?retryWrites=true&w=majority";
+const dev_db_url = process.env.mongoURL;
 const mongoDB = process.env.MONGODB_URI || dev_db_url;
 
 mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true });
@@ -29,7 +31,7 @@ db.on("error", console.error.bind(console, "MongoDB connection error:"));
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 
-app.use(helmet())
+app.use(helmet());
 app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
